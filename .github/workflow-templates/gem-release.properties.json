@@ -1,0 +1,11 @@
+{
+    "name": "Gem Release Workflow",
+    "description": "Release a gem on tag push to Rubygems and Github.",
+    "iconName": "gem-release",
+    "categories": [
+        "Ruby"
+    ],
+    "filePatterns": [
+        ".+\\.gemspec$"
+    ]
+}
