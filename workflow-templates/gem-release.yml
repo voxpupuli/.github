@@ -1,4 +1,4 @@
-name: Release
+name: Release Gem
 
 on:
   push:
@@ -8,6 +8,9 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     if: github.repository_owner == 'voxpupuli'
     steps:
       - uses: actions/checkout@v2
@@ -15,8 +18,6 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.0'
-        env:
-          BUNDLE_WITHOUT: release
       - name: Build gem
         run: gem build *.gemspec
       - name: Publish gem to rubygems.org
@@ -25,8 +26,9 @@ jobs:
           GEM_HOST_API_KEY: '${{ secrets.RUBYGEMS_AUTH_TOKEN }}'
       - name: Setup GitHub packages access
         run: |
-          mkdir -p ~/.gem
-          echo ":github: Bearer ${{ secrets.GITHUB_TOKEN }}" >> ~/.gem/credentials
-          chmod 0600 ~/.gem/credentials
+          mkdir -p $HOME/.gem
+          touch $HOME/.gem/credentials
+          chmod 0600 $HOME/.gem/credentials
+          echo ":github: Bearer ${{ secrets.GITHUB_TOKEN }}" >> $HOME/.gem/credentials
       - name: Publish gem to GitHub packages
-        run: gem push --key github --host https://rubygems.pkg.github.com/voxpupuli *.gem
+        run: gem push --key github --host https://rubygems.pkg.github.com/${{ github.repository_owner }} *.gem
