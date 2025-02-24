@@ -9,8 +9,6 @@
   * [Sending your patches](#sending-your-patches)
   * [Update the related GitHub issue](#update-the-related-gitHub-issue)
 * [Puppet development and testing](#puppet-development-and-testing)
-  * [Dependencies](#dependencies)
-    * [Note for OS X users](#note-for-os-x-users)
   * [The test matrix](#the-test-matrix)
   * [Syntax and style](#syntax-and-style)
   * [Running the unit tests](#running-the-unit-tests)
